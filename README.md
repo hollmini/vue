@@ -2,7 +2,6 @@ Vue.js
 ======
 
 ## Index
-----
 1. Vue.js?
 
 ## Vue.js?
