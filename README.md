@@ -23,19 +23,21 @@ Augular와 React에 비해 간단하지만 우수하고 빠르며, 앵귤러의 
 ## 뷰 인스턴스
 
 ### 기본 생성 
-> ```
-> <div id="app">
-> 	<p>{{message}}</p>
-> </div>
-> <script type="text/javascript">
-> 	new Vue({ // 인스턴스 생성
-> 		el: '#app', // DOM 요소 지정
-> 		data: { // data 값 정의
-> 			message: 'Hellow world'
-> 		}
-> 	})
-> <script>
-> ```
+```
+<div id="app">
+	<p>{{message}}</p>
+</div>
+<script type="text/javascript">
+	new Vue({ // 인스턴스 생성
+		el: '#app', // DOM 요소 지정
+		data: { // data 값 정의
+			message: 'Hellow world'
+		}
+	})
+<script>
+```
+
+> ※ example : 01_vue_Instance.html
 
 ### 관련 속성
 - template : 화면에 표시할 HTML, CSS 등의 마크업 요소를 정의하는 속성, 뷰의 데이터 및 기타 속성들도 함께 화면에 그릴 수 있음
@@ -56,8 +58,4 @@ Augular와 React에 비해 간단하지만 우수하고 빠르며, 앵귤러의 
 - **beforeDestroy** : 인스턴스가 파괴되기 적전에 호출되는 단계이다. 이 단계에서는 아직 인스턴스에 접근할 수 있으며, 인스턴스의 데이터를 삭제하기 좋은 단계이다.
 - **destoryed** : 인스턴스가 파괴되고 난 후 호출되는 단계이다. 인스턴스에 정의한 모든 속성이 제거되고 하위에 선언한 인스턴스들 또한 모두 파괴된다.
 
-
-
-
-
-
+> ※ example : 02_lifecycle.html
