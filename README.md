@@ -1,7 +1,7 @@
 Vue.js
 ======
 
-# Index
+## Index
 ----
 1. Vue.js?
 
