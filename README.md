@@ -28,6 +28,4 @@ MVVM(Model - View - ViewModel)로 구조화하여 개발하는 방식이다.
 
 ## 뷰 인스턴스
 1. 생성
-<pre>
-	<code><div id="app"><p>{{message}}</p></div></code>
-</pre>
+<pre><code><div id="app"><p>{{message}}</p></div></code></pre>
