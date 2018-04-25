@@ -4,8 +4,8 @@ Vue.js
 ## Index
 1. [Vue.js 소개]()
 2. [Setting]()
-3. [뷰 인스턴스]
-4. [뷰 컴포넌트]
+3. [뷰 인스턴스]()
+4. [뷰 컴포넌트]()
 
 ## Vue.js 소개
 Augular와 React에 비해 간단하지만 우수하고 빠르며, 앵귤러의 데이터 바인딩 특성과 리액트 가상 DOM 기반 렌더링 특징을 모두 가지고 있다. MVVM(Model - View - ViewModel)로 구조화하여 개발하는 방식이다.
@@ -121,7 +121,7 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 > ※ example : 04_component_communication1.html
 
 #### 하위에서 상위 컴포넌트(인스턴스)로 이벤트 전달
-하위 컴포넌트에서 상위 컴포넌트로 신호를 보내서 상위 컴포넌트의 메소드를 실행할 수도 있고, 응용하여 하위 컴포넌트로 내려보내는 props의 값을 조정할 수도 있다.
+하위 컴포넌트에서 상위 컴포넌트로 신호를 보내서 상위 컴포넌트의 메소드를 실행할 수도 있고, 응용하여 하위 컴포넌트로 내려보내는 props의 값을 조정할 수도 있다. 공식 사이트의 이벤트 발생 사용 방법에서는 하위에서 상위로 데이터를 전달하는 방법을 다루지 않는지만(단방향 데이터 흐름에 어긋나는 구현 방법임), 향후 복잡한 애플리케이션을 구축할 때 필요한 경우가 종종 있다.
 
 ```
 <div id="app">
@@ -155,3 +155,36 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 > ※ example : 04_component_communication2.html
 
 #### 같은 레벨 컴포넌트간의 통신
+뷰는 상위에서 하위로만 데이터를 전달해야 하는 기본적인 통신 규칙을 따르기 때문에 형제 컴포넌트끼리 값을 전달 하려면 공통 상위 컴포넌트로 이벤트를 전달한 후 공통 상위 컴포넌트에서 2개의 하위 컴포넌트에 props를 내려 보내야 한지만 **이벤트 버스(Event Bus)**를 사용하여 상위 컴포넌트 없이 통신할수 있는 방법도 존재한다.
+이벤트 버스를 구현하려면 애플리케이션 로직을 담는 인스턴스와는 별개로 새로운 인스턴스 하나를 더 생성하고, 새 인스턴스를 이용하여 보내고 받아야 한다. 보내는 컴포넌트에서는 **.$emit()**을, 받는 컴포넌트에서는 **.$on()**을 구현한다. 이벤트버스를 사용하면 props 속성을 이용하지 않고도 원하는 컴포넌트간에 직접적으로 데이터를 전달할수 있어 편리하지만, 컴포넌트가 많아지면 관리가 되지않는 이슈가 있다. 이 문제를 해결하려면 뷰엑스(Vuex)라는 상태 관리 도구가 필요하지만 여기서는 다루지 않도록 한다.
+
+```
+<div id="app">
+	<!-- 같은 레벨의 컴포넌트로 데이터 전달 -->
+	<child-component></child-component>
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	var eventBus = new Vue(); // 이벤트 버스를 위한 인스턴스 생성
+
+	Vue.component('child-component', { // 이벤트를 보내는 컴포넌트
+		template: '<div>하위 컴포넌트 영역입니다.<button type="button" v-on:click="showLog">show</button></div>',
+		methods: {
+			showLog: function() {
+				eventBus.$emit('triggerEventBus', 100);
+			}
+		}
+	})
+
+	var vw = new Vue({ // 이벤트를 받는 컴포넌트
+		el: '#app',
+		created: function(){
+			eventBus.$on('triggerEventBus', function(value) {
+				console.log('이벤트를 전달 받음. 전달받은 값 :', value);
+			});
+		}
+	})
+</script>
+```
+
+> ※ example : 04_component_communication3.html
