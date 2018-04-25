@@ -4,7 +4,8 @@ Vue.js
 ## Index
 1. [Vue.js 소개]()
 2. [Setting]()
-3. 
+3. [뷰 인스턴스]
+4. [뷰 컴포넌트]
 
 ## Vue.js 소개
 Augular와 React에 비해 간단하지만 우수하고 빠르며, 앵귤러의 데이터 바인딩 특성과 리액트 가상 DOM 기반 렌더링 특징을 모두 가지고 있다. MVVM(Model - View - ViewModel)로 구조화하여 개발하는 방식이다.
@@ -13,15 +14,13 @@ Augular와 React에 비해 간단하지만 우수하고 빠르며, 앵귤러의 
  뷰는 앵귤러의 **양방향 데이터 바인딩(Two-way Daga binding)**과 리액트의 **단방향 데이터 흐름(One-way Daga Flow)**의 장점을 모두 결합한 프레임워크이다.
 
 ## Setting
-- Editer 설치
+- **Editer** 설치
 - **Node.js** 설치 : [nodejs.org](https://nodejs.org/en/)
-- Vue devtools 설치
-뷰로 개발할때 도움을 주는 도구.	웹 앱의 구조를 간편하게 디버깅하너가 분석할 수 있으며 크롬, 파이어폭스, 사파리에서 모두 지원 된다.
+- **Vue devtools** : 뷰로 개발할때 도움을 주는 도구. 앱의 구조를 간편하게 디버깅하너가 분석할 수 있으며 크롬, 파이어폭스, 사파리에서 모두 지원 된다.
 
 > **TIP** : node.js는 Current 버전보다 안정적인 LTS(Long Term Support) 버전을 설치하는것이 라이브러리 호환성 관점에서 더 좋다.
 
 ## 뷰 인스턴스
-
 ### 기본 생성 
 ```
 <div id="app">
@@ -59,3 +58,100 @@ Augular와 React에 비해 간단하지만 우수하고 빠르며, 앵귤러의 
 - **destoryed** : 인스턴스가 파괴되고 난 후 호출되는 단계이다. 인스턴스에 정의한 모든 속성이 제거되고 하위에 선언한 인스턴스들 또한 모두 파괴된다.
 
 > ※ example : 02_lifecycle.html
+
+## 뷰 컴포넌트
+### 컴포넌트(Component)란?
+조합하여 화면을 구성할 수 있는 블록을 의미한다. 컴포넌트를 활용하면 빠르게 구조화하여 일괄적인 패턴으로 개발이 가능하며, 코드 재사용이 훨씬 편리해진다. 또한 모든 사람들이 정해진 방식대로 컴포넌트를 등록하거나 사용하게 되므로 남이 작성한 코드를 직관적으로 이해할 수 있다.
+
+### 컴포넌트 등록 형식
+등록 방법은 전역(Global)과 지역(Local) 두가지가 있는데, 지역 컴포넌트는 특정 인스턴스에서만 사용할 수 있고, 전역 컴포넌트는 여러 인스턴스에서 공통으로 사용 할 수 있다.
+
+```
+<div id="app">
+	<p>첫번째 인스턴스 영역</p>
+	<!-- 전역 컴포넌트 태그 추가 -->
+	<global-component></global-component>
+	<!-- 지역 컴포넌트 태그 추가 -->
+	<local-component></local-component>
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('global-component', { // 전역 컴포넌트 등록
+		template: '<div>전역 컴포넌트가 등록되었습니다.</div>' // 전역 컴포넌트 내용
+	})
+	var cmp = { // 지역 컴포넌트 내용
+		template: '<div>지역 컴포넌트가 등록되었습니다</div>'
+	}
+	new Vue({
+		el: '#app',
+		components: { // 지역 컴포넌트 등록
+			'local-component': cmp 
+		}
+	})
+</script>
+
+> ※ example : 03_component.html
+```
+### 뷰 컴포넌트 통신
+컴포넌트 간 유효 범위로 인해 다른 컴포넌트의 값을 직접 접근하지 못하기 때문에 일관된 구조로 애플리케이션을 작성해야 한다. 이에따라 개발자 개개인의 스타일대로 구성되지 않고 애플리케이션이 모두 동일한 데이터 흐름을 갖게 되어 다른사람의 코드도 빠르게 파악할 수 있어 협업하기 수월해진다. 컴포넌트끼리 통신을 원하면 뷰 프레임워크 자체에서 정의한 컴포넌트 데이터 전달 방법을 따라야 한다.
+
+#### 상위 컴포넌트(인스턴스)에서 하위 컴포넌트로 데이터 전달
+**props**는 상위 컴포넌트에서 하위 컴포넌트로 데이터를 전달할 때 사용하는 속성이다. props속성을 사용하려면 먼저 하위 컴포넌트의 속성에 정의한다.
+다음 단계로 로 상위 컴포넌트의 HTML 코드에 등록된 컴포넌트 태그에 v-bind 속성을 추가한다.
+v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속성을 넣고, 속성 값으로 하위 컴포넌트에 전달할 상위 컴포넌트의 data 속성을 지정한다. 
+```
+<div id="app">
+	<child-component v-bind:propsdata="message"></child-component>
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('child-component', {
+		props : ['propsdata'],
+		template : '<p>{{propsdata}}</p>'
+	})
+	var vw = new Vue({
+		el: '#app',
+		data: {
+			message: 'Hello Vue! passed from parent component'
+		}
+	})
+</script>
+```
+
+> ※ example : 04_component_communication1.html
+
+#### 하위에서 상위 컴포넌트(인스턴스)로 이벤트 전달
+하위 컴포넌트에서 상위 컴포넌트로 신호를 보내서 상위 컴포넌트의 메소드를 실행할 수도 있고, 응용하여 하위 컴포넌트로 내려보내는 props의 값을 조정할 수도 있다.
+
+```
+<div id="app">
+	<!-- 하위 컴포넌트에서 상위 컴포넌트(인스턴스)로 데이터 전달 -->
+	<child-component v-on:show-log="printText"></child-component>
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('child-component', {
+		template: '<button type="button" v-on:click="showLog">show</button>', // 버튼 요소 추가
+		methods: { // 메서드 추가
+			showLog: function() {
+				this.$emit('show-log');
+			}
+		}
+	})
+	var vw = new Vue({
+		el: '#app',
+		data: {
+			message: 'Hello Vue! passed from parent component'
+		},
+		methods: {
+			printText: function() {
+				console.log('received an event');
+			}
+		}
+	})
+</script>
+```
+
+> ※ example : 04_component_communication2.html
+
+#### 같은 레벨 컴포넌트간의 통신
