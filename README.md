@@ -6,6 +6,7 @@ Vue.js
 2. [Setting]()
 3. [뷰 인스턴스]()
 4. [뷰 컴포넌트]()
+4. [뷰 라우터]()
 
 ## Vue.js 소개
 Augular와 React에 비해 간단하지만 우수하고 빠르며, 앵귤러의 데이터 바인딩 특성과 리액트 가상 DOM 기반 렌더링 특징을 모두 가지고 있다. MVVM(Model - View - ViewModel)로 구조화하여 개발하는 방식이다.
@@ -125,14 +126,13 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 
 ```
 <div id="app">
-	<!-- 하위 컴포넌트에서 상위 컴포넌트(인스턴스)로 데이터 전달 -->
 	<child-component v-on:show-log="printText"></child-component>
 </div>
 <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
 <script type="text/javascript">
 	Vue.component('child-component', {
-		template: '<button type="button" v-on:click="showLog">show</button>', // 버튼 요소 추가
-		methods: { // 메서드 추가
+		template: '<button type="button" v-on:click="showLog">show</button>',
+		methods: { 
 			showLog: function() {
 				this.$emit('show-log');
 			}
@@ -165,9 +165,9 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 </div>
 <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
 <script type="text/javascript">
-	var eventBus = new Vue(); // 이벤트 버스를 위한 인스턴스 생성
+	var eventBus = new Vue();
 
-	Vue.component('child-component', { // 이벤트를 보내는 컴포넌트
+	Vue.component('child-component', { 
 		template: '<div>하위 컴포넌트 영역입니다.<button type="button" v-on:click="showLog">show</button></div>',
 		methods: {
 			showLog: function() {
@@ -176,7 +176,7 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 		}
 	})
 
-	var vw = new Vue({ // 이벤트를 받는 컴포넌트
+	var vw = new Vue({
 		el: '#app',
 		created: function(){
 			eventBus.$on('triggerEventBus', function(value) {
@@ -188,3 +188,27 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 ```
 
 > ※ example : 04_component_communication3.html
+
+## 뷰 라우터
+뷰 라우터는 뷰에서 라우팅 기능을 구현할 수 있도록 지원하는 공식 라이브러리이다. 뷰 라우터를 이용하여 뷰로 만든 페이지 간에 자유롭게 이동할 수 있다.
+
+### 라우팅(Roution)
+라우팅이란 웹 페이지 간의 이동 방법을 말한다. 라우팅은 현대 웹 앱 형태 중 하나인 싱글 페이지 애플리케이션(SPA, Single Page Application)에서 주로 서용 된다.
+라우팅을 이용하면 화면간의 전환이 매끄럽고 애플리케이션의 사용자 경험을 향상시킬 수 있다. 일반적으로 브라우저에서 웹 페이지를 요청하면 응답시간 동안 깜빡거리는 현상이 나타나는데, 라우팅으로 처리하면 화면을 매끄럽게 전환 할 수 있을 뿐 아니라 더 빠르게 화면 조작이 가능하다.
+
+- <router-link to="url"> // 페이지로이동 태그, 화면에서는 <a>로 표시되며 클릭하면 지정한 URL로 이동
+- <router-view> // 페이지 표시 태그. 변경되는 URL에 따라 해당 컴포넌트를 뿌려주는 영역
+
+
+> ※ example : 05_router.html
+
+#### 라우터 URL 해시 값(#) 삭제법
+```
+var router = new VueRouter({
+	mode: 'history',
+	routes
+})
+```
+
+### 네스티드 라우터
+
