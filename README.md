@@ -75,7 +75,6 @@ Augular와 React에 비해 간단하지만 우수하고 빠르며, 앵귤러의 
 	<!-- 지역 컴포넌트 태그 추가 -->
 	<local-component></local-component>
 </div>
-<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
 <script type="text/javascript">
 	Vue.component('global-component', { // 전역 컴포넌트 등록
 		template: '<div>전역 컴포넌트가 등록되었습니다.</div>' // 전역 컴포넌트 내용
@@ -104,7 +103,6 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 <div id="app">
 	<child-component v-bind:propsdata="message"></child-component>
 </div>
-<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
 <script type="text/javascript">
 	Vue.component('child-component', {
 		props : ['propsdata'],
@@ -128,7 +126,6 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 <div id="app">
 	<child-component v-on:show-log="printText"></child-component>
 </div>
-<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
 <script type="text/javascript">
 	Vue.component('child-component', {
 		template: '<button type="button" v-on:click="showLog">show</button>',
@@ -163,7 +160,6 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 	<!-- 같은 레벨의 컴포넌트로 데이터 전달 -->
 	<child-component></child-component>
 </div>
-<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
 <script type="text/javascript">
 	var eventBus = new Vue();
 
@@ -196,12 +192,43 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 라우팅이란 웹 페이지 간의 이동 방법을 말한다. 라우팅은 현대 웹 앱 형태 중 하나인 싱글 페이지 애플리케이션(SPA, Single Page Application)에서 주로 서용 된다.
 라우팅을 이용하면 화면간의 전환이 매끄럽고 애플리케이션의 사용자 경험을 향상시킬 수 있다. 일반적으로 브라우저에서 웹 페이지를 요청하면 응답시간 동안 깜빡거리는 현상이 나타나는데, 라우팅으로 처리하면 화면을 매끄럽게 전환 할 수 있을 뿐 아니라 더 빠르게 화면 조작이 가능하다.
 
-```
-<router-link to="url"> // 페이지로이동 태그, 화면에서는 <a>로 표시되며 클릭하면 지정한 URL로 이동
-<router-view> // 페이지 표시 태그. 변경되는 URL에 따라 해당 컴포넌트를 뿌려주는 영역
-```
 
+- &lt;router-link to="url"&gt; : 페이지로이동 태그, 화면에서는 <a>로 표시되며 클릭하면 지정한 URL로 이동
+- &lt;router-view&gt; : 페이지 표시 태그. 변경되는 URL에 따라 해당 컴포넌트를 뿌려주는 영역
+
+```
+<div id="app">
+	<p>
+		<router-link to="/main">Main 컴포넌트로 이동</router-link> <!-- URL 값을 변경하는 태그 -->
+		<router-link to="/login">Login 컴포넌트로 이동</router-link> <!-- URL 값을 변경하는 태그 -->
+	</p>
+	<router-view></router-view> <!-- URL 값에 따라 갱신되는 화면 -->
+</div>
+<script type="text/javascript">
+	var Main = { 
+		template: '<div>main</div>'
+	}
+	var Login = {
+		template: '<div>login</div>'
+	}
+
+	var routes = [
+		{path: '/main', component: Main},
+		{path: '/login', component: Login}
+	]
+
+	var router = new VueRouter({
+		routes
+	})
+
+	var vw = new Vue({ 
+	}).$mount('#app');
+</script>
+```
 > ※ example : 05_router.html
+
+#### **$mount() API**란?
+해당 값은 el 속성과 동일하게 인스턴스를 화면에 붙이는 역할을 한다. 인스턴스를 생성할 때 el 속성을 넣지 않았더라도 생성하고 나서 $mount()를 이용하면 강제로 인스턴스를 화면에 붙일 수가 있다. 참고로 뷰 라우터의 공식 문서는 모두 인스턴스 안에 el를 지정하지 않고 해당 방법을 사용하여 안내하고 있다.
 
 #### 라우터 URL 해시 값(#) 삭제법
 ```
