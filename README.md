@@ -106,9 +106,9 @@ v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props속�
 <script type="text/javascript">
 	Vue.component('child-component', {
 		props : ['propsdata'],
-	var vw = new Vue({
 		template : '<p>{{propsdata}}</p>'
 	})
+	var vw = new Vue({
 		el: '#app',
 		data: {
 			message: 'Hello Vue! passed from parent component'
@@ -248,8 +248,3 @@ var router = new VueRouter({
 ### 네스티드 라우터(Nested Router)
 네스티드 라우터는 라우터로 페이지를 이동할 때 최소 2개 이상의 컴포넌트를 화면에 나타낼 수 있다. 상위 컴포넌트 1개에 하위 컴포넌트 1개를 포함하는 구조로 구성된다.
 네스티드 라우터를 이용하면 URL에 따라 컴포넌트의 하위 컴포넌트가 다르게 표시된다.
-
-
-
-## 디렉티브
-
