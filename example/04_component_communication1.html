@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>example :: Vue</title>
+</head>
+<body>
+<div id="app">
+	<!-- 상위 컴포넌트(인스턴스)에서 하위 컴포넌트로 데이터 전달 -->
+	<child-component :propsdata="message"></child-component>
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('child-component', {
+		props : ['propsdata'],
+		template : '<p>{{propsdata}}</p>'
+	})
+	var vw = new Vue({
+		el: '#app',
+		data: {
+			message: 'Hello Vue! passed from parent component'
+		}
+	})
+</script>
+</body>
+</html>

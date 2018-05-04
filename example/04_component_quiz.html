@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>example :: Vue</title>
+</head>
+<body>
+<div id="app">
+	<sibling-component :propsdata="message"></sibling-component>
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('sibling-component', { // 전역 컴포넌트 등록
+		props: ['propsdata'],
+		template: '<p>{{propsdata}}</p>'
+	})
+
+	var vw = new Vue({ // 데이터 속성 추가
+		el: '#app',
+		data: {
+			message: 'Hellow Vue!'
+		}
+	})
+</script>
+</body>
+</html>

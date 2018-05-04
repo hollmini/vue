@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>example :: Vue</title>
+</head>
+<body>
+<div id="app">
+	<p>
+		<router-link to="/main">Main 컴포넌트로 이동</router-link> <!-- URL 값을 변경하는 태그 -->
+		<router-link to="/login">Login 컴포넌트로 이동</router-link> <!-- URL 값을 변경하는 태그 -->
+	</p>
+	<router-view></router-view> <!-- URL 값에 따라 갱신되는 화면 -->
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript" src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script> <!-- Router CND 추가 -->
+<script type="text/javascript">
+	var Main = { // main 컴보넌트 정의
+		template: '<div>main</div>'
+	}
+	var Login = { // login 컴포넌트 정의
+		template: '<div>login</div>'
+	}
+
+	var routes = [ // 각 URL에 맞춰 표시할 컴포넌트 지정
+		{
+			path: '/main', 
+			component: Main
+		},
+		{
+			path: '/login', 
+			component: Login
+		}
+	]
+
+	var router = new VueRouter({ // 뷰 라우터 정의
+		routes
+	})
+
+	var vw = new Vue({ // 뷰 인스턴스에 라우터 추가
+		router
+	}).$mount('#app');
+</script>
+</body>
+</html>

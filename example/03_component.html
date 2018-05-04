@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>example :: Vue</title>
+</head>
+<body>
+<div id="app">
+	<p>첫번째 인스턴스 영역</p>
+	<!-- 전역 컴포넌트 태그 추가 -->
+	<global-component></global-component>
+	<!-- 지역 컴포넌트 태그 추가 -->
+	<local-component></local-component>
+</div>
+<hr>
+<div id="app2">
+	<p>두번쨰 인스턴스 영역</p>
+	<global-component></global-component>
+	<local-component></local-component>
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('global-component', { // 전역 컴포넌트 등록
+		template: '<div>전역 컴포넌트가 등록되었습니다.</div>' // 전역 컴포넌트 내용
+	})
+	var cmp = { // 지역 컴포넌트 내용
+		template: '<div>지역 컴포넌트가 등록되었습니다</div>'
+	}
+	new Vue({
+		el: '#app',
+		components: { // 지역 컴포넌트 등록
+			'local-component': cmp 
+		}
+	})
+	new Vue({
+		el: '#app2'
+	})
+</script>
+</body>
+</html>
