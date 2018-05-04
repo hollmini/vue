@@ -2,7 +2,7 @@ Vue.js
 ======
 
 ## Index
-1. [Vue.js 소개](##Vue.js 소개)
+1. [Vue.js 소개](## Vue.js 소개)
 2. [Setting](#Setting)
 3. [뷰 인스턴스](#뷰 인스턴스)
 4. [뷰 컴포넌트](#뷰 컴포넌트)
