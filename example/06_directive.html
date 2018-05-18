@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>example :: Vue</title>
+</head>
+<body>
+<div id="app">
+	<h1>Directive</h1>
+
+	<hr>
+
+	<h2>v-text</h2>
+	<p v-text="sample"></p>
+
+	<hr>
+
+	<h2>v-html</h2>
+	<p v-html="sample2"></p>
+
+	<hr>
+
+	<h2>v-show</h2>
+	<p v-show="true">속성값이 true로 화면에 노출됩니다</p>
+	<p v-show="false">속성값이 false으로 화면에 노출되지 않습니다</p>
+
+	<hr>
+
+	<h2>v-if & v-on</h2>
+	<p v-if="sample3">true일때 노출되는 값</p>
+	<p v-else="!sample3">false 일때 노출되는 값</p>
+	<!-- <button v-on:click="sample3 = !sample3" type="button">test</button> -->
+	<button @click="sample3 = !sample3" type="button">test</button>
+
+	<hr>
+
+	<h2>v-bind</h2>
+	<a href="#" v-bind:title="title">마우스 오버시 바인딩된 값을 확인할 수 있습니다</a> 
+	<!-- <a href="#" :title="title">마우스 오버시 바인딩된 값을 확인할 수 있습니다</a> -->
+
+
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	var vw = new Vue({
+		el: '#app',
+		data: {
+			sample: '<a href="#">샘플 텍스트</a>',
+			sample2: '<a href="#">샘플 텍스트</a>',
+			sample3: true,
+			title: '현재 시각은 ' + new Date() + ' 입니다'
+		}
+	});
+</script>
+</body>
+</html>
