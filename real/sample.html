@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>example :: Vue</title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/content.css">
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<div id="app">
+	<div class="tbl_wrap">
+		<table class="tbl">
+		<caption><span class="blind">음원 차트</span></caption>
+		<colgroup>
+		<col style="width:50px"><col style="width:50px"><col><col style="width:50px"><col style="width:100px"><col style="width:100px"><col style="width:50px"><col style="width:50px"><col style="width:50px"><col style="width:50px">
+		</colgroup>
+		<thead>
+		<tr>
+		<th scope="col" class="align_c">선택</th>
+		<th scope="col" class="align_c">순위</th>
+		<th scope="col">곡정보</th>
+		<th scope="col">앨범</th>
+		<th scope="col">좋아요</th>
+		<th scope="col" class="align_c">듣기</th>
+		<th scope="col" class="align_c">담기</th>
+		<th scope="col" class="align_c">다운</th>
+		<th scope="col" class="align_c">뮤비</th>
+		<th scope="col" class="align_c">링/벨</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		<td class="align_c"><input type="checkbox"></td>
+		<td class="align_c">{{ranking}}</td>
+		<td>
+			<div class="info">
+				<span class="img"><img src="img/img_album.jpg" alt=""></span>
+				<button type="button" class="btn_view"><span class="sp">가사보기</span></button>
+				<span class="title">{{title}}</span>
+				<span class="artist">{{artist}}</span>
+			</div>
+		</td>
+		<td>{{albumName}}</td>
+		<td><button type="button" class="btn_like"><span class="blind">좋아요 수</span><span clsas="txt">{{likeCount}}</span></button></td>
+		<td class="align_c"><button type="button" class="btn_play"><span class="sp">재생</span></button></td>
+		<td class="align_c"><button type="button" class="btn_add"><span class="sp">담기</span></button></td>
+		<td class="align_c"><button type="button" class="btn_down"><span class="sp">다운</span></button></td>
+		<td class="align_c"><button type="button" class="btn_movie"><span class="sp">뮤비</span></button></td>
+		<td class="align_c"><button type="button" class="btn_ring"><span class="sp">링/벨</span></button></td>
+		</tr>
+		<tr>
+		<td class="align_c"><input type="checkbox"></td>
+		<td class="align_c">{{ranking}}</td>
+		<td>
+			<div class="info">
+				<span class="img"><img src="img/img_album.jpg" alt=""></span>
+				<button type="button" class="btn_view"><span class="sp">가사보기</span></button>
+				<span class="title">{{title}}</span>
+				<span class="artist">{{artist}}</span>
+			</div>
+		</td>
+		<td>홍시</td>
+		<td><button type="button" class="btn_like active"><span class="blind">좋아요 수</span><span clsas="txt">{{likeCount}}</span></button></td>
+		<td class="align_c"><button type="button" class="btn_play"><span class="sp">재생</span></button></td>
+		<td class="align_c"><button type="button" class="btn_add"><span class="sp">담기</span></button></td>
+		<td class="align_c"><button type="button" class="btn_down"><span class="sp">다운</span></button></td>
+		<td class="align_c"><button type="button" class="btn_movie"><span class="sp">뮤비</span></button></td>
+		<td class="align_c"><button type="button" class="btn_ring"><span class="sp">링/벨</span></button></td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript">
+	var vw = new Vue({
+		el: '#app',
+		data: {
+			ranking: 1,
+			title: 'Muscommu',
+			artist: '멜로디언',
+			albumName: '홍시',
+			likeCount: 4
+		}
+	})
+</script>
+</body>
+</html>

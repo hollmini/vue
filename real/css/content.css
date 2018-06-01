@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+.sp{display:inline-block;background-image:url(../img/sp.png);background-repeat:no-repeat;font-size:0;vertical-align:top}
+
+.sp2,
+.btn_like:before{display:inline-block;background-image:url(../img/sp2.png);background-repeat:no-repeat;font-size:0;vertical-align:top}
+
+#app, #demo{max-width:920px;padding:20px 10px;margin:0 auto;}
+.tbl_wrap{border-top:1px solid #efefef;}
+.tbl{width:100%;table-layout:fixed}
+.tbl th{height:40px;padding:0 5px;border-bottom:1px solid #efefef;font-size:12px;font-weight:normal;text-align:left}
+.tbl td{height:90px;padding:10px 5px;border-bottom:1px solid #efefef;font-size:12px;text-align:left}
+.tbl th.align_c,.tbl td.align_c{text-align:center}
+.tbl td .info{position:relative;height:70px;padding:20px 0 0 102px;box-sizing:border-box}
+.tbl td .info .img{position:absolute;top:0;left:0;width:70px;height:70px}
+.tbl td .info .img img{width:100%;height:100%}
+.tbl td .info .btn_view{position:absolute;top:50%;left:80px;margin-top:-7px}
+.tbl td .info .btn_view .sp{width:12px;height:15px;background-position:-286px -30px}
+.tbl td .info .title{display:block}
+.tbl td .info .artist{display:block;color:gray}
+
+.btn_like .sp{}
+.btn_like:before{width:20px;height:16px;margin-right:3px;background-position:0 -60px;content:'';}
+.btn_like.active:before{background-position:-21px -60px}
+.btn_play .sp{width:16px;height:20px;background-position:0 -33px}
+.btn_add .sp{width:19px;height:20px;background-position:-45px -34px}
+.btn_down .sp{width:21px;height:20px;background-position:-98px -34px}
+.btn_movie .sp{width:24px;height:20px;background-position:-45px -34px}
+.btn_ring .sp{width:18px;height:20px;background-position:-206px -34px}
