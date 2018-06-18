@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>example :: Vue</title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/content.css">
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<script type="text/x-template" id="notice-template">
+  <div class="tbl_wrap">
+	  <table class="tbl">
+	  	<caption><span class="blind">음원 차트</span></caption>
+		<colgroup>
+		<col style="width:50px"><col><col style="width:150px">
+		</colgroup>
+    <thead>
+    <tr>
+    <th v-for="key in columns"
+      @click="sortBy(key)"
+      :class="{ active: sortKey == key }">
+      {{ key | capitalize }}
+      <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+      </span>
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="entry in filteredData">
+    <td v-for="key in columns">
+      {{entry[key]}}
+    </td>
+    </tr>
+    </tbody>
+	  </table>
+  </div>
+</script>
+
+<div id="app">
+  <demo-grid
+    :data="noticeData"
+    :columns="noticeTh"
+    :filter-key="searchQuery">
+  </demo-grid>
+  <form id="search">
+    검색 <input name="query" v-model="searchQuery">
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script type="text/javascript">
+	Vue.component('demo-grid', {
+	  template: '#notice-template',
+	  props: {
+	    data: Array,
+	    columns: Array,
+	    filterKey: String
+	  },
+	  data: function () {
+	    var sortOrders = {}
+	    this.columns.forEach(function (key) {
+	      sortOrders[key] = 1
+	    })
+	    return {
+	      sortKey: '',
+	      sortOrders: sortOrders
+	    }
+	  },
+	  computed: {
+	    filteredData: function () {
+	      var sortKey = this.sortKey
+	      var filterKey = this.filterKey && this.filterKey.toLowerCase()
+	      var order = this.sortOrders[sortKey] || 1
+	      var data = this.data
+	      if (filterKey) {
+	        data = data.filter(function (row) {
+	          return Object.keys(row).some(function (key) {
+	            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+	          })
+	        })
+	      }
+	      if (sortKey) {
+	        data = data.slice().sort(function (a, b) {
+	          a = a[sortKey]
+	          b = b[sortKey]
+	          return (a === b ? 0 : a > b ? 1 : -1) * order
+	        })
+	      }
+	      return data
+	    }
+	  },
+	  filters: {
+	    capitalize: function (str) {
+	      return str.charAt(0).toUpperCase() + str.slice(1)
+	    }
+	  },
+	  methods: {
+	    sortBy: function (key) {
+	      this.sortKey = key
+	      this.sortOrders[key] = this.sortOrders[key] * -1
+	    }
+	  }
+	})
+
+	// bootstrap the demo
+	var vw = new Vue({
+	  el: '#app',
+	  data: {
+	    searchQuery: '',
+	    noticeTh: ['no', 'title', 'date'],
+	    noticeData: [
+	      { no: '1', title: '공지사항 타이틀1', date: '2018-06-05' },
+	      { no: '2', title: 'UI칼퇴2팀', date: '2018-06-06' },
+	      { no: '3', title: 'Vue는 어렵다', date: '2018-06-18' },
+	      { no: '4', title: '너무 ㅠ', date: '2018-06-20' }
+	    ]
+	  }
+	})
+</script>
+</body>
+</html>

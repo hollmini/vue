@@ -1,0 +1,20 @@
+{
+    "noticeList": [
+        {
+            "noticeNo": 1,
+            "noticeTitle": "게시판 타이틀1",
+            "noticeDate": "2018-06-04",
+            "noticeWriter": "김민재"
+        },{
+            "noticeNo": 2,
+            "noticeTitle": "회식은 고기리로 갑니다",
+            "noticeDate": "2018-06-16",
+            "noticeWriter": "신비"
+        },{
+            "noticeNo": 3,
+            "noticeTitle": "샘플 타이틀입니다~~",
+            "noticeDate": "2018-07-16",
+            "noticeWriter": "김다인"
+        }
+    ]
+}
